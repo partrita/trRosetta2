@@ -6,7 +6,10 @@ WORKDIR /usr/src/app
 COPY . .
 
 # install the dependencies
-RUN conda env create -f casp14-baker.yml && conda activate casp14-baker
+RUN conda env create -f casp14-baker.yml
+
+# Make RUN commands use the new environment:
+SHELL ["conda", "run", "-n", "casp14-baker", "/bin/bash", "-c"]
 
 RUN wget https://files.ipd.uw.edu/pub/trRosetta2/weights.tar.bz2 && tar xf weights.tar.bz2
 
